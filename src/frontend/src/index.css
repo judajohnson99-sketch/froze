@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DM Sans font */
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Freezefunds dark navy palette */
+    --background: 0.11 0.025 255;
+    --foreground: 0.97 0.01 255;
+    --card: 0.15 0.035 255;
+    --card-foreground: 0.97 0.01 255;
+    --popover: 0.15 0.035 255;
+    --popover-foreground: 0.97 0.01 255;
+    --primary: 0.82 0.12 210;
+    --primary-foreground: 0.1 0.025 255;
+    --secondary: 0.18 0.04 255;
+    --secondary-foreground: 0.97 0.01 255;
+    --muted: 0.18 0.04 255;
+    --muted-foreground: 0.73 0.025 250;
+    --accent: 0.82 0.12 210;
+    --accent-foreground: 0.1 0.025 255;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.97 0.01 255 / 8%;
+    --input: 0.97 0.01 255 / 12%;
+    --ring: 0.82 0.12 210;
+    --chart-1: 0.82 0.12 210;
+    --chart-2: 0.7 0.1 210;
+    --chart-3: 0.55 0.08 210;
+    --chart-4: 0.4 0.06 210;
+    --chart-5: 0.25 0.04 210;
+    --sidebar: 0.1 0.025 255;
+    --sidebar-foreground: 0.97 0.01 255;
+    --sidebar-primary: 0.82 0.12 210;
+    --sidebar-primary-foreground: 0.1 0.025 255;
+    --sidebar-accent: 0.18 0.04 255;
+    --sidebar-accent-foreground: 0.97 0.01 255;
+    --sidebar-border: 0.97 0.01 255 / 8%;
+    --sidebar-ring: 0.82 0.12 210;
+
+    /* Custom tokens */
+    --navy-darkest: 0.09 0.025 255;
+    --navy-dark: 0.11 0.025 255;
+    --navy-mid: 0.15 0.035 255;
+    --navy-light: 0.18 0.04 255;
+    --cyan: 0.82 0.12 210;
+    --cyan-bright: 0.87 0.13 205;
+    --cyan-glow: 0.82 0.12 210 / 25%;
+    --text-primary: 0.97 0.01 255;
+    --text-secondary: 0.73 0.025 250;
+    --text-muted: 0.58 0.02 250;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-color: oklch(var(--navy-dark));
+    color: oklch(var(--text-primary));
+  }
+}
+
+@layer utilities {
+  .text-cyan {
+    color: oklch(var(--cyan));
+  }
+  .bg-navy-darkest {
+    background-color: oklch(var(--navy-darkest));
+  }
+  .bg-navy-dark {
+    background-color: oklch(var(--navy-dark));
+  }
+  .bg-navy-mid {
+    background-color: oklch(var(--navy-mid));
+  }
+  .bg-navy-light {
+    background-color: oklch(var(--navy-light));
+  }
+  .text-muted-cool {
+    color: oklch(var(--text-secondary));
+  }
+  .border-white-subtle {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .glow-cyan {
+    box-shadow: 0 0 24px oklch(var(--cyan-glow)), 0 0 48px
+      oklch(var(--cyan-glow));
+  }
+  .glow-cyan-sm {
+    box-shadow: 0 0 12px oklch(var(--cyan-glow));
+  }
+}
+
+/* Snowflake watermark animation */
+@keyframes slow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-slow-spin {
+  animation: slow-spin 60s linear infinite;
+}
+
+/* Hero gradient animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Fade-in on scroll */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-slow-spin {
+    animation: none;
+  }
+  .animate-gradient {
+    animation: none;
+  }
+}
