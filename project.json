@@ -1,0 +1,19 @@
+{
+  "overview": "A pre-launch landing page for Froze, a behavioral savings app that locks funds until goals are reached, with a waitlist signup, detailed feature highlights, and a product preview.",
+  "features": [
+    "Waitlist signup form positioned right under the tagline",
+    "Detailed feature highlights for lockable accounts, automated savings, smart insights, and reminders",
+    "Frosted glass product mockup previewing the upcoming vault dashboard",
+    "Lightened icy background with frosted glass motifs throughout",
+    "Admin route for viewing waitlist signups"
+  ],
+  "category": "landing-page",
+  "tags": [
+    "fintech",
+    "savings",
+    "waitlist",
+    "icy-theme",
+    "glassmorphism"
+  ],
+  "last_updated": "2026-07-05T00:59:01.563Z"
+}

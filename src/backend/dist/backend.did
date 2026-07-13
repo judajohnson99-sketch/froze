@@ -1,0 +1,300 @@
+type VaultView = 
+ record {
+   createdAt: Timestamp;
+   currentAmount: nat;
+   goalName: text;
+   id: nat;
+   note: opt text;
+   progressPercent: nat;
+   status: VaultStatus;
+   targetAmount: nat;
+   unlockDate: Timestamp;
+ };
+type VaultStatus = 
+ variant {
+   broken;
+   freezing;
+   thawed;
+   thawing;
+ };
+type VaultStats = 
+ record {
+   currentAmount: nat;
+   depositCount: nat;
+   goalName: text;
+   status: text;
+   targetAmount: nat;
+   userId: UserId;
+   vaultId: nat;
+ };
+type UserIdentity = 
+ record {
+   isAdmin: bool;
+   "principal": UserId;
+   provider: IdentityProvider;
+   registeredAt: Timestamp;
+ };
+type UserId = principal;
+type Timestamp = int;
+type SetupRecurringDepositRequest = 
+ record {
+   amount: nat;
+   cadence: RecurringCadence;
+   idempotencyKeyPrefix: IdempotencyKey;
+   vaultId: nat;
+ };
+type Sequence = nat;
+type RecurringDeposit = 
+ record {
+   active: bool;
+   amount: nat;
+   cadence: RecurringCadence;
+   createdAt: Timestamp;
+   id: nat;
+   idempotencyKeyPrefix: IdempotencyKey;
+   nextRunAt: Timestamp;
+   userId: UserId;
+   vaultId: nat;
+ };
+type RecurringCadence = 
+ variant {
+   daily;
+   monthly;
+   weekly;
+ };
+type ReconciliationResult = 
+ record {
+   balanced: bool;
+   derivedBalance: nat;
+   sumCredits: nat;
+   sumDebits: nat;
+   userId: UserId;
+   vaultId: nat;
+ };
+type Recommendation = 
+ record {
+   cashFlowWarning: opt text;
+   createdAt: Timestamp;
+   disclaimer: text;
+   id: nat;
+   rationale: text;
+   suggestedDepositAdjustment: opt record {
+                                     newAmount: nat;
+                                     vaultId: nat;
+                                   };
+   suggestedPercent: nat;
+   title: text;
+   userId: UserId;
+ };
+type ReachedMilestone = 
+ record {
+   milestone: Milestone;
+   percent: nat;
+   reachedAt: Timestamp;
+   vaultId: nat;
+ };
+type NotificationType = 
+ variant {
+   adminBroadcast;
+   depositFrozen;
+   milestoneReached;
+   recommendationAvailable;
+   unlockApproaching;
+   vaultUnlocked;
+ };
+type Notification = 
+ record {
+   body: text;
+   createdAt: Timestamp;
+   id: nat;
+   notificationType: NotificationType;
+   read: bool;
+   title: text;
+   userId: UserId;
+   vaultId: opt nat;
+ };
+type Milestone = 
+ variant {
+   fifty;
+   oneHundred;
+   seventyFive;
+   twentyFive;
+ };
+type LedgerEntry = 
+ record {
+   amount: nat;
+   description: text;
+   idempotencyKey: IdempotencyKey;
+   reason: EntryReason;
+   sequence: Sequence;
+   side: EntrySide;
+   timestamp: Timestamp;
+   transactionId: nat;
+   triggeredBy: UserId;
+   userId: UserId;
+   vaultId: nat;
+ };
+type JobStatus = 
+ variant {
+   deadLetter;
+   failed;
+   pending;
+   running;
+   succeeded;
+ };
+type JobLogEntry = 
+ record {
+   attempt: nat;
+   jobId: nat;
+   message: text;
+   status: JobStatus;
+   timestamp: Timestamp;
+ };
+type JobKind = 
+ variant {
+   autoDeposit;
+   interestReward;
+   milestoneCheck;
+   optimizationRun;
+   recurringDeposit;
+   unlockCheck;
+   withdrawalProcess;
+ };
+type Job = 
+ record {
+   createdAt: Timestamp;
+   id: nat;
+   idempotencyKey: IdempotencyKey;
+   kind: JobKind;
+   lastError: opt text;
+   nextAttemptAt: Timestamp;
+   payload: text;
+   retryCount: nat;
+   status: JobStatus;
+ };
+type IdentityProvider = 
+ variant {
+   apple;
+   email;
+   google;
+   internetIdentity;
+ };
+type IdempotencyKey = text;
+type GrowthAnalytics = 
+ record {
+   averageVaultsPerUser: float64;
+   newUsersLast30d: nat;
+   newUsersLast7d: nat;
+   totalSavedAcrossVaults: nat;
+   totalUsers: nat;
+ };
+type GoalProgress = 
+ record {
+   currentAmount: nat;
+   nextMilestone: opt Milestone;
+   percent: nat;
+   reachedMilestones: vec Milestone;
+   targetAmount: nat;
+   vaultId: nat;
+ };
+type EntrySide = 
+ variant {
+   credit;
+   debit;
+ };
+type EntryReason = 
+ variant {
+   interestReward;
+   jobProcessing;
+   manualDeposit;
+   reconciliationAdjustment;
+   recurringDeposit;
+   vaultBreak;
+   vaultLock;
+   vaultUnlock;
+   withdrawal;
+ };
+type Entry = 
+ record {
+   email: Email;
+   timestamp: Timestamp;
+ };
+type Email = text;
+type DepositResult = 
+ variant {
+   duplicate;
+   insufficientReason;
+   invalidVault;
+   ok: record {
+         newBalance: nat;
+         transactionId: nat;
+       };
+ };
+type CreateVaultRequest = 
+ record {
+   goalName: text;
+   lockDurationNs: Timestamp;
+   note: opt text;
+   targetAmount: nat;
+ };
+type AdminMetrics = 
+ record {
+   deadLetterJobs: nat;
+   pendingJobs: nat;
+   totalDeposits: nat;
+   totalUsers: nat;
+   totalVaults: nat;
+   waitlistCount: nat;
+ };
+type Achievement = 
+ record {
+   awardedAt: Timestamp;
+   description: text;
+   id: nat;
+   title: text;
+   userId: UserId;
+ };
+/// Froze backend — composition root.
+/// 
+/// Wires all domain modules together via mixins. No business logic lives
+/// here; every public function is delegated to a mixin. Stable state is
+/// declared here and passed into the mixins that need it.
+/// 
+/// State shape change from the previous waitlist-only actor requires an
+/// explicit migration (see migration.mo).
+service : {
+  addAdmin: ("principal": UserId) -> (bool);
+  addToWaitlist: (email: Email) -> (bool);
+  cancelRecurringDeposit: (recurringId: nat) -> (bool);
+  createVault: (request: CreateVaultRequest) -> (nat);
+  emailAlreadyExists: (email: Email) -> (bool) query;
+  getAchievements: () -> (vec Achievement);
+  getDeadLetterJobs: () -> (vec Job);
+  getEmailTimestamp: (email: text) -> (opt Timestamp) query;
+  getGoalProgress: (vaultId: nat) -> (GoalProgress);
+  getGrowthAnalytics: () -> (GrowthAnalytics);
+  getJobLog: () -> (vec JobLogEntry);
+  getMetrics: () -> (AdminMetrics);
+  getMilestones: (vaultId: nat) -> (vec ReachedMilestone);
+  getMyIdentity: () -> (UserIdentity);
+  getMyPrincipal: () -> (text);
+  getNotifications: () -> (vec Notification);
+  getPendingJobCount: () -> (nat);
+  getRecommendationHistory: () -> (vec Recommendation);
+  getRecommendations: () -> (Recommendation);
+  getRecurringDeposits: () -> (vec RecurringDeposit);
+  getVault: (vaultId: nat) -> (opt VaultView);
+  getVaultLedger: (vaultId: nat) -> (vec LedgerEntry);
+  getVaultStats: () -> (vec VaultStats);
+  getVaults: () -> (vec VaultView);
+  getWaitlist: () -> (vec Entry) query;
+  getWaitlistCount: () -> (nat) query;
+  isAdmin: () -> (bool);
+  makeDeposit: (vaultId: nat, amount: nat, idempotencyKey: IdempotencyKey,
+   description: text) -> (DepositResult);
+  markAllNotificationsRead: () -> (nat);
+  markRead: (notificationId: nat) -> (bool);
+  reconcileMyVaults: () -> (vec ReconciliationResult);
+  reconcileVault: (vaultId: nat) -> (ReconciliationResult);
+  setupRecurringDeposit: (request: SetupRecurringDepositRequest) -> (nat);
+}

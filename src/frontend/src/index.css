@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* DM Sans font */
+/* ── Cryo Fonts ── */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: "DM Sans";
   src: url("/assets/fonts/DMSans.woff2") format("woff2");
@@ -10,156 +17,939 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 @layer base {
   :root {
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Freezefunds dark navy palette */
-    --background: 0.11 0.025 255;
-    --foreground: 0.97 0.01 255;
-    --card: 0.15 0.035 255;
-    --card-foreground: 0.97 0.01 255;
-    --popover: 0.15 0.035 255;
-    --popover-foreground: 0.97 0.01 255;
-    --primary: 0.82 0.12 210;
-    --primary-foreground: 0.1 0.025 255;
-    --secondary: 0.18 0.04 255;
-    --secondary-foreground: 0.97 0.01 255;
-    --muted: 0.18 0.04 255;
-    --muted-foreground: 0.73 0.025 250;
-    --accent: 0.82 0.12 210;
-    --accent-foreground: 0.1 0.025 255;
-    --destructive: 0.577 0.245 27.325;
-    --destructive-foreground: 0.985 0 0;
-    --border: 0.97 0.01 255 / 8%;
-    --input: 0.97 0.01 255 / 12%;
-    --ring: 0.82 0.12 210;
-    --chart-1: 0.82 0.12 210;
-    --chart-2: 0.7 0.1 210;
-    --chart-3: 0.55 0.08 210;
-    --chart-4: 0.4 0.06 210;
-    --chart-5: 0.25 0.04 210;
-    --sidebar: 0.1 0.025 255;
-    --sidebar-foreground: 0.97 0.01 255;
-    --sidebar-primary: 0.82 0.12 210;
-    --sidebar-primary-foreground: 0.1 0.025 255;
-    --sidebar-accent: 0.18 0.04 255;
-    --sidebar-accent-foreground: 0.97 0.01 255;
-    --sidebar-border: 0.97 0.01 255 / 8%;
-    --sidebar-ring: 0.82 0.12 210;
+    /* ── Dark Steel Cryo: Deep Muted Slate-Gray (OKLCH L C H) ── */
+    /* Backgrounds — deep muted dark steel, #0a0d12 → #0e1218 */
+    --background: 0.155 0.012 245; /* #0c1016 Deep Steel */
+    --background-deep: 0.14 0.012 248; /* #0a0d12 Deeper Steel */
+    --foreground: 0.96 0.008 240; /* #E8EDF2 Cool Near-White */
 
-    /* Custom tokens */
-    --navy-darkest: 0.09 0.025 255;
-    --navy-dark: 0.11 0.025 255;
-    --navy-mid: 0.15 0.035 255;
-    --navy-light: 0.18 0.04 255;
-    --cyan: 0.82 0.12 210;
-    --cyan-bright: 0.87 0.13 205;
-    --cyan-glow: 0.82 0.12 210 / 25%;
-    --text-primary: 0.97 0.01 255;
-    --text-secondary: 0.73 0.025 250;
-    --text-muted: 0.58 0.02 250;
+    /* Surfaces — dark frosted glass over steel base */
+    --card: 0.18 0.012 245 / 55%; /* semi-transparent dark frost */
+    --card-foreground: 0.96 0.008 240;
+    --card-solid: 0.18 0.012 245; /* opaque dark frost */
+    --popover: 0.16 0.012 245 / 88%;
+    --popover-foreground: 0.96 0.008 240;
+
+    /* Primary — Deep Electric Blue (#2563eb) */
+    --primary: 0.55 0.22 260; /* #2563eb Electric Blue */
+    --primary-foreground: 0.99 0.005 220;
+    --primary-hover: 0.5 0.23 260;
+    --primary-glow: 0.55 0.22 260 / 30%;
+
+    /* Secondary — Steel Muted */
+    --secondary: 0.28 0.012 245 / 60%;
+    --secondary-foreground: 0.88 0.008 240; /* cool steel white */
+
+    /* Muted — dim steel vapor */
+    --muted: 0.22 0.012 245 / 60%;
+    --muted-foreground: 0.68 0.012 240; /* cool steel, readable on dark */
+
+    /* Accent — Vibrant Icy Cyan (#22d3ee) */
+    --accent: 0.78 0.14 195; /* #22d3ee Icy Cyan */
+    --accent-foreground: 0.14 0.02 200;
+    --accent-glow: 0.78 0.14 195 / 35%; /* Frost Glow */
+
+    /* Frost — brightest cyan highlight */
+    --frost: 0.85 0.14 195; /* #5EE9F5 Bright Frost */
+    --frost-foreground: 0.14 0.02 200;
+
+    /* Semantic */
+    --destructive: 0.62 0.22 25; /* warm melt warning */
+    --destructive-foreground: 0.99 0.005 220;
+    --success: 0.7 0.15 175; /* frozen teal success */
+    --success-foreground: 0.14 0.02 200;
+    --warning: 0.78 0.16 70; /* condensation amber */
+    --warning-foreground: 0.16 0.04 70;
+
+    /* Borders & inputs — visible steel edges on dark */
+    --border: 0.5 0.012 245 / 22%; /* steel edge */
+    --input: 0.78 0.14 195 / 22%; /* cyan input */
+    --ring: 0.78 0.14 195 / 55%; /* cyan ring */
+
+    /* Charts — cryo spectrum (brightened for dark bg) */
+    --chart-1: 0.55 0.22 260; /* electric blue */
+    --chart-2: 0.78 0.14 195; /* icy cyan */
+    --chart-3: 0.85 0.14 195; /* frost glow */
+    --chart-4: 0.68 0.012 240; /* steel white */
+    --chart-5: 0.7 0.16 250; /* bright electric */
+
+    /* Sidebar — deeper steel panel */
+    --sidebar: 0.16 0.012 248;
+    --sidebar-foreground: 0.88 0.008 240;
+    --sidebar-primary: 0.78 0.14 195;
+    --sidebar-primary-foreground: 0.14 0.02 200;
+    --sidebar-accent: 0.78 0.14 195 / 14%;
+    --sidebar-accent-foreground: 0.78 0.14 195;
+    --sidebar-border: 0.5 0.012 245 / 22%;
+    --sidebar-ring: 0.78 0.14 195 / 55%;
+
+    /* Type tokens */
+    --font-display: "Space Grotesk", "DM Sans", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.78 0.14 195) 0%,
+      oklch(0.55 0.22 260) 100%
+    );
+    --gradient-frost: linear-gradient(
+      135deg,
+      oklch(0.85 0.14 195 / 0%) 0%,
+      oklch(0.85 0.14 195 / 28%) 100%
+    );
+    --gradient-vault: radial-gradient(
+        ellipse at 50% 0%,
+        oklch(0.78 0.14 195 / 10%) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 85% 15%,
+        oklch(0.55 0.22 260 / 8%) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 55% 45% at 15% 85%,
+        oklch(0.78 0.14 195 / 5%) 0%,
+        transparent 65%
+      ), oklch(0.155 0.012 245);
+
+    /* Motion */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-cryo: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   * {
-    @apply border-border;
+    border-color: oklch(var(--border));
   }
 
   html {
-    scroll-behavior: smooth;
     color-scheme: dark;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    background-color: oklch(var(--navy-dark));
-    color: oklch(var(--text-primary));
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    /* Subtle dark steel ambient — faint cyan/blue cool glaze over the deep
+       steel base. No light arctic radials; the diamond-plate texture
+       (body::below) supplies the metallic feel. */
+    background-image: radial-gradient(
+        ellipse 70% 50% at 50% 0%,
+        oklch(0.55 0.22 260 / 0.1) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 85% 100%,
+        oklch(0.78 0.14 195 / 0.06) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 55% 45% at 15% 90%,
+        oklch(0.55 0.22 260 / 0.05) 0%,
+        transparent 65%
+      );
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  /* ── Diamond-Plate Steel Texture — fixed behind everything ── */
+  /* Hyper-subtle metallic diamond-plate pattern at ~4% opacity,
+     blurred and faded so it never distracts from text. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><defs><linearGradient id='dp' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23ffffff' stop-opacity='0.18'/><stop offset='50%25' stop-color='%23ffffff' stop-opacity='0.04'/><stop offset='100%25' stop-color='%23000000' stop-opacity='0.22'/></linearGradient></defs><g fill='url(%23dp)'><path d='M0 15 L15 0 L30 15 L15 30 Z'/><path d='M30 15 L45 0 L60 15 L45 30 Z'/><path d='M15 30 L30 15 L45 30 L30 45 Z'/><path d='M0 45 L15 30 L30 45 L15 60 Z'/><path d='M30 45 L45 30 L60 45 L45 60 Z'/><path d='M15 60 L30 45 L45 60 L30 75 Z'/></g></svg>");
+    background-size: 60px 60px;
+    background-repeat: repeat;
+    opacity: 0.04;
+    filter: blur(0.6px);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum" 1, "zero" 1;
+  }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
   }
 }
 
+/* ── Cryo Surface Utilities ── */
 @layer utilities {
-  .text-cyan {
-    color: oklch(var(--cyan));
+  .rounded-pill {
+    border-radius: 9999px;
   }
-  .bg-navy-darkest {
-    background-color: oklch(var(--navy-darkest));
+
+  /* ─ Cryo Glass — dark frosted glass over steel base.
+     White tint ~5%, razor-thin inner border rgba(255,255,255,0.12) with
+     inset top highlight, soft outer shadow. */
+  .cryo-glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(28px) saturate(1.4) brightness(1.05);
+    -webkit-backdrop-filter: blur(28px) saturate(1.4) brightness(1.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top-color: rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 -1px 0
+      rgba(0, 0, 0, 0.3) inset, 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px
+      oklch(0.78 0.14 195 / 0.08);
+    position: relative;
+    overflow: hidden;
   }
-  .bg-navy-dark {
-    background-color: oklch(var(--navy-dark));
+  .cryo-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      oklch(0.78 0.14 195 / 0.1) 30%,
+      transparent 55%
+    );
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
   }
-  .bg-navy-mid {
-    background-color: oklch(var(--navy-mid));
+
+  /* ─ Cryo Glass Strong — denser dark frost for modals/featured.
+     White tint ~6%, deeper blur, brighter inset highlight. */
+  .cryo-glass-strong {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(40px) saturate(1.5) brightness(1.06);
+    -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top-color: rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.14) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.4) inset,
+      2px 0 0 oklch(0.78 0.14 195 / 0.1) inset,
+      0 20px 60px rgba(0, 0, 0, 0.55),
+      0 0 32px oklch(0.78 0.14 195 / 0.12);
+    position: relative;
+    overflow: hidden;
   }
-  .bg-navy-light {
-    background-color: oklch(var(--navy-light));
+  .cryo-glass-strong::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      oklch(0.78 0.14 195 / 0.12) 28%,
+      transparent 55%
+    );
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
   }
-  .text-muted-cool {
-    color: oklch(var(--text-secondary));
+
+  /* ─ Cryo Edge Glow — cyan rim light on hover/active (dark-tuned) ─ */
+  .cryo-edge-glow {
+    box-shadow: 0 0 0 1px oklch(0.78 0.14 195 / 0.45), 0 0 24px
+      oklch(0.78 0.14 195 / 0.28), 0 0 48px oklch(0.55 0.22 260 / 0.18);
+    transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .border-white-subtle {
-    border-color: rgba(255, 255, 255, 0.08);
+  .cryo-edge-glow:hover {
+    box-shadow: 0 0 0 1px oklch(0.78 0.14 195 / 0.65), 0 0 32px
+      oklch(0.78 0.14 195 / 0.38), 0 0 64px oklch(0.55 0.22 260 / 0.26);
   }
-  .glow-cyan {
-    box-shadow: 0 0 24px oklch(var(--cyan-glow)), 0 0 48px
-      oklch(var(--cyan-glow));
+
+  /* ─ Cryo Condensation — subtle dark-glass droplet texture overlay.
+     Tuned down so it never distracts from content on dark steel. */
+  .cryo-condensation {
+    position: relative;
   }
-  .glow-cyan-sm {
-    box-shadow: 0 0 12px oklch(var(--cyan-glow));
+  .cryo-condensation::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+        ellipse 2px 3px at 12% 22%,
+        oklch(0.78 0.14 195 / 0.22) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        ellipse 3px 2px at 28% 68%,
+        oklch(0.85 0.14 195 / 0.18) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        ellipse 2px 4px at 45% 45%,
+        oklch(0.78 0.14 195 / 0.2) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        ellipse 4px 2px at 62% 12%,
+        oklch(0.85 0.14 195 / 0.14) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        ellipse 2px 3px at 78% 58%,
+        oklch(0.78 0.14 195 / 0.18) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        ellipse 3px 2px at 88% 88%,
+        oklch(0.85 0.14 195 / 0.16) 0%,
+        transparent 100%
+      );
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.4;
+    animation: condensation-shift 14s ease-in-out infinite;
+  }
+
+  /* ─ Cryo Ice Facet — subtle angular crystal catch on corner (dark) ─ */
+  .cryo-ice-facet {
+    position: relative;
+  }
+  .cryo-ice-facet::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(
+      225deg,
+      oklch(0.78 0.14 195 / 0.18) 0%,
+      transparent 70%
+    );
+    clip-path: polygon(100% 0%, 0% 0%, 100% 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ─ Cryo Floating Shadow — elevated card lift (dark, deep) ─ */
+  .cryo-floating-shadow {
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 8px 24px
+      oklch(0.55 0.22 260 / 0.18), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  /* ─ Cryo Vault Background — dark steel ambient with cool cyan/blue glaze ─ */
+  .cryo-vault-bg {
+    background: radial-gradient(
+        ellipse 70% 50% at 20% 0%,
+        oklch(0.78 0.14 195 / 0.1) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 80% 100%,
+        oklch(0.55 0.22 260 / 0.08) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 50% 35% at 50% 50%,
+        oklch(0.55 0.22 260 / 0.05) 0%,
+        transparent 70%
+      ), oklch(0.155 0.012 245);
+  }
+
+  /* ─ Cryo Aurora — soft ambient glow band (dark-tuned) ─ */
+  .cryo-aurora {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(0.55 0.22 260 / 0.16) 30%,
+      oklch(0.78 0.14 195 / 0.22) 50%,
+      oklch(0.55 0.22 260 / 0.16) 70%,
+      transparent 100%
+    );
+    filter: blur(40px);
+  }
+
+  /* ─ Cryo Text Gradients — bright cool white → cyan → electric blue
+     (readable on dark steel) ─ */
+  .text-gradient-cryo {
+    background: linear-gradient(
+      135deg,
+      oklch(0.96 0.008 240) 0%,
+      oklch(0.78 0.14 195) 55%,
+      oklch(0.55 0.22 260) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-frost {
+    background: linear-gradient(
+      120deg,
+      oklch(0.96 0.008 240) 0%,
+      oklch(0.85 0.14 195) 50%,
+      oklch(0.55 0.22 260) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ─ Cryo Mesh Backlight — subtle cyan radial glow tuned for dark steel ─ */
+  .cryo-mesh-backlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+        ellipse 60% 50% at 50% 35%,
+        oklch(0.78 0.14 195 / 0.14) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 45% 40% at 20% 60%,
+        oklch(0.85 0.14 195 / 0.1) 0%,
+        transparent 65%
+      ),
+      radial-gradient(
+        ellipse 50% 45% at 80% 30%,
+        oklch(0.55 0.22 260 / 0.12) 0%,
+        transparent 70%
+      );
+    filter: blur(120px);
+    -webkit-filter: blur(120px);
+  }
+
+  /* ─ Cryo Header Gradient — bright cool white → electric blue clipped text ─ */
+  .cryo-header-gradient {
+    background: linear-gradient(
+      180deg,
+      oklch(0.99 0.008 240) 0%,
+      oklch(0.78 0.14 195) 60%,
+      oklch(0.55 0.22 260) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ─ Cryo Badge Pill — dark frosted glass cyan micro-pill.
+     backdrop-filter blur(12px), bg white/5, 1px border rgba(255,255,255,0.18),
+     tight radius, mono uppercase 0.3em tracking, subtle inner highlight. */
+  .cryo-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    color: oklch(0.85 0.14 195);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 0 12px
+      oklch(0.78 0.14 195 / 0.1);
+  }
+
+  /* ─ Cryo Glass Input — dark translucent input field with thin border,
+     readable placeholder text on dark. ─ */
+  .cryo-glass-input {
+    backdrop-filter: blur(12px) saturate(1.3);
+    -webkit-backdrop-filter: blur(12px) saturate(1.3);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    padding: 16px;
+    color: oklch(0.96 0.008 240);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .cryo-glass-input::placeholder {
+    color: oklch(0.68 0.012 240 / 0.7);
+  }
+  .cryo-glass-input:focus {
+    outline: none;
+    border-color: oklch(0.78 0.14 195 / 0.65);
+    box-shadow: 0 0 0 1px oklch(0.78 0.14 195 / 0.45), 0 0 24px
+      oklch(0.78 0.14 195 / 0.22);
+  }
+
+  /* ─ Cryo Glass Button — CTA with smooth 12px radius, premium vertical
+     gradient from vibrant icy cyan (#22d3ee) to deep electric blue (#2563eb),
+     soft cyan/blue box-shadow glow, subtle hover lift. Keeps .cryo-glint. ─ */
+  .cryo-glass-button {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+      180deg,
+      oklch(0.78 0.14 195) 0%,
+      oklch(0.55 0.22 260) 100%
+    );
+    border: 1px solid oklch(0.78 0.14 195 / 0.55);
+    border-radius: 12px;
+    padding: 16px 24px;
+    color: oklch(0.99 0.005 220);
+    box-shadow: 0 0 24px oklch(0.78 0.14 195 / 0.4), 0 8px 16px
+      oklch(0.55 0.22 260 / 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    transition: box-shadow 0.3s ease, transform 0.2s ease, border-color 0.3s
+      ease;
+  }
+  .cryo-glass-button:hover {
+    box-shadow: 0 0 32px oklch(0.78 0.14 195 / 0.55), 0 12px 24px
+      oklch(0.55 0.22 260 / 0.38), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    border-color: oklch(0.78 0.14 195 / 0.8);
+    transform: translateY(-1px);
+  }
+  .cryo-glass-button:active {
+    transform: translateY(1px);
+  }
+
+  /* ─ Cryo Glint — fine skewed diagonal sweep across button face ─ */
+  .cryo-glint {
+    position: relative;
+    overflow: hidden;
+  }
+  .cryo-glint::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%
+    );
+    transform: skewX(-20deg);
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 3;
+    animation: cryo-glint-sweep 3s ease-in-out infinite;
+  }
+
+  /* ─ Cryo Button shine sweep ─ */
+  .cryo-btn-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+  .cryo-btn-sweep::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(0.93 0.11 200 / 30%) 50%,
+      transparent 100%
+    );
+    transform: skewX(-15deg);
+    pointer-events: none;
+    z-index: 3;
+  }
+  .cryo-btn-sweep:hover::after {
+    animation: shine-sweep 0.55s ease forwards;
+  }
+
+  /* ─ Vault evolution tiers — frost thickens with savings ─ */
+  .cryo-vault-tier-1 {
+    box-shadow: 0 0 0 1px oklch(0.78 0.02 240 / 30%), 0 12px 32px
+      oklch(0.6 0.14 210 / 18%);
+  }
+  .cryo-vault-tier-2 {
+    box-shadow: 0 0 0 1px oklch(0.52 0.2 258 / 35%), 0 0 24px
+      oklch(0.52 0.2 258 / 22%), 0 16px 40px oklch(0.6 0.14 210 / 20%);
+  }
+  .cryo-vault-tier-3 {
+    box-shadow: 0 0 0 1px oklch(0.7 0.14 200 / 50%), 0 0 32px
+      oklch(0.7 0.14 200 / 30%), 0 0 64px oklch(0.52 0.2 258 / 22%), 0 20px 48px
+      oklch(0.6 0.14 210 / 24%);
+  }
+  .cryo-vault-tier-4 {
+    box-shadow: 0 0 0 1px oklch(0.7 0.14 200 / 62%), 0 0 40px
+      oklch(0.7 0.14 200 / 38%), 0 0 80px oklch(0.52 0.2 258 / 28%), inset 0 0
+      40px oklch(0.7 0.14 200 / 14%), 0 24px 56px oklch(0.6 0.14 210 / 26%);
+  }
+
+  /* ─ Entrance fades ─ */
+  .fade-in {
+    animation: fade-up-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--fade-delay, 0s);
+  }
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─ Froze Logo — dissolve pure-black logo background into the dark steel
+     page. mix-blend-mode: screen drops black (#000) to transparent, leaving
+     only the glowing cyan FROZE text visible. Sharpened with
+     image-rendering tweaks, subtle cyan glow drop-shadow, slight
+     contrast/saturation bump via filter. */
+  .froze-logo {
+    mix-blend-mode: screen;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    filter: drop-shadow(0 0 14px oklch(0.78 0.14 195 / 0.32))
+      drop-shadow(0 0 32px oklch(0.55 0.22 260 / 0.2)) contrast(1.08)
+      saturate(1.12);
+    transition: filter 0.4s ease;
+  }
+  .froze-logo:hover {
+    filter: drop-shadow(0 0 18px oklch(0.78 0.14 195 / 0.46))
+      drop-shadow(0 0 44px oklch(0.55 0.22 260 / 0.28)) contrast(1.12)
+      saturate(1.18);
+  }
+
+  /* ─ Frost Melt Transition — smooth icy gradient melt staying within the
+     dark steel palette (no light arctic fade). Layer 1 is the linear melt
+     from deep steel into a faint cyan-tinted steel; Layer 2 (::after) is a
+     subtle frost-grain (crystalline cyan noise) so the transition reads as
+     a deliberate frost melt, not a flat gradient band. */
+  .frost-melt-transition {
+    background: linear-gradient(
+        180deg,
+        #060a12 0%,
+        rgba(6, 10, 18, 0.92) 12%,
+        rgba(10, 16, 28, 0.82) 32%,
+        rgba(14, 24, 42, 0.62) 52%,
+        rgba(18, 32, 54, 0.38) 72%,
+        rgba(22, 40, 64, 0.14) 88%,
+        rgba(12, 16, 22, 0) 100%
+      ),
+      radial-gradient(
+        ellipse 60% 100% at 50% 100%,
+        oklch(0.78 0.14 195 / 0.08) 0%,
+        transparent 70%
+      );
+  }
+  .frost-melt-transition::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+        circle at 18% 70%,
+        oklch(0.78 0.14 195 / 0.1) 0%,
+        transparent 8%
+      ),
+      radial-gradient(
+        circle at 42% 88%,
+        oklch(0.85 0.14 195 / 0.08) 0%,
+        transparent 6%
+      ),
+      radial-gradient(
+        circle at 68% 64%,
+        oklch(0.78 0.14 195 / 0.09) 0%,
+        transparent 7%
+      ),
+      radial-gradient(
+        circle at 84% 82%,
+        oklch(0.72 0.13 195 / 0.07) 0%,
+        transparent 6%
+      ),
+      radial-gradient(
+        circle at 28% 50%,
+        oklch(0.8 0.1 195 / 0.06) 0%,
+        transparent 5%
+      ),
+      radial-gradient(
+        circle at 58% 40%,
+        oklch(0.74 0.12 195 / 0.07) 0%,
+        transparent 5%
+      );
+    mix-blend-mode: screen;
+    opacity: 0.7;
+    pointer-events: none;
   }
 }
 
-/* Snowflake watermark animation */
-@keyframes slow-spin {
+/* ── Cryo Keyframes ── */
+@keyframes fade-up-in {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(24px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-.animate-slow-spin {
-  animation: slow-spin 60s linear infinite;
-}
-
-/* Hero gradient animation */
-@keyframes gradient-shift {
+@keyframes frost-spreading {
   0% {
-    background-position: 0% 50%;
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.4;
   }
   50% {
-    background-position: 100% 50%;
+    clip-path: inset(0 0 0 0);
+    opacity: 0.9;
   }
   100% {
-    background-position: 0% 50%;
+    clip-path: inset(0 0 0 0);
+    opacity: 0.7;
   }
 }
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
+@keyframes particles-drifting {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(20px, -40px);
+    opacity: 0;
+  }
 }
-
-/* Fade-in on scroll */
-.fade-in {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+@keyframes mist-rising {
+  0% {
+    transform: translateY(20px) scale(1);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-40px) scale(1.15);
+    opacity: 0;
+  }
 }
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes light-refracting {
+  0%,
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(12deg) brightness(1.12);
+  }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .fade-in {
+@keyframes ice-thickening {
+  0% {
+    backdrop-filter: blur(20px);
+    opacity: 0.85;
+  }
+  100% {
+    backdrop-filter: blur(36px);
     opacity: 1;
-    transform: none;
-    transition: none;
   }
-  .animate-slow-spin {
-    animation: none;
+}
+@keyframes crystallize {
+  0% {
+    transform: scale(0.85) rotate(0deg);
+    opacity: 0.5;
   }
-  .animate-gradient {
-    animation: none;
+  50% {
+    transform: scale(1.05) rotate(8deg);
+    opacity: 1;
   }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.9;
+  }
+}
+@keyframes ice-grows-outward {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+@keyframes frozen-glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 24px oklch(0.93 0.11 200 / 20%), 0 0 48px
+      oklch(0.62 0.19 258 / 12%);
+  }
+  50% {
+    box-shadow: 0 0 36px oklch(0.93 0.11 200 / 36%), 0 0 72px
+      oklch(0.62 0.19 258 / 22%);
+  }
+}
+@keyframes subtle-melting {
+  0%,
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(2px) scaleY(0.985);
+  }
+}
+@keyframes condensation-shift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(2px, -1px);
+    opacity: 0.9;
+  }
+}
+@keyframes snowfall {
+  0% {
+    transform: translateY(-10px) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+@keyframes aurora-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateX(-5%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateX(5%) scale(1.08);
+  }
+}
+@keyframes ice-shatter {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.8;
+    filter: blur(1px);
+  }
+  100% {
+    transform: scale(0.92);
+    opacity: 0;
+    filter: blur(3px);
+  }
+}
+@keyframes shine-sweep {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+@keyframes cryo-glint-sweep {
+  0% {
+    transform: translateX(0%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateX(400%) skewX(-20deg);
+    opacity: 0.15;
+  }
+  80% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateX(0%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+/* ── Cryo Animation Utilities ── */
+.animate-frost-spreading {
+  animation: frost-spreading 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-particles-drifting {
+  animation: particles-drifting 8s linear infinite;
+}
+.animate-mist-rising {
+  animation: mist-rising 6s ease-out infinite;
+}
+.animate-light-refracting {
+  animation: light-refracting 7s ease-in-out infinite;
+}
+.animate-ice-thickening {
+  animation: ice-thickening 0.6s ease-out both;
+}
+.animate-crystallize {
+  animation: crystallize 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-ice-grows-outward {
+  animation: ice-grows-outward 1.4s ease-out infinite;
+}
+.animate-frozen-glow-pulse {
+  animation: frozen-glow-pulse 4s ease-in-out infinite;
+}
+.animate-subtle-melting {
+  animation: subtle-melting 5s ease-in-out infinite;
+}
+.animate-condensation-shift {
+  animation: condensation-shift 14s ease-in-out infinite;
+}
+.animate-snowfall {
+  animation: snowfall 12s linear infinite;
+}
+.animate-aurora-glow {
+  animation: aurora-glow 10s ease-in-out infinite;
+}
+.animate-ice-shatter {
+  animation: ice-shatter 0.5s ease-out both;
+}
+
+/* ── Scrollbar — cryo styled (dark) ── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.14 0.012 248);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.55 0.22 260 / 0.45);
+  border-radius: 9999px;
+  border: 2px solid oklch(0.14 0.012 248);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.78 0.14 195 / 0.65);
+}
+
+::selection {
+  background: oklch(0.78 0.14 195 / 0.35);
+  color: oklch(0.99 0.008 240);
 }

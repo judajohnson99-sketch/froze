@@ -1,0 +1,295 @@
+// Version: 1.0.0
+type Achievement__337376607 =
+  {
+    awardedAt : Timestamp__301639476;
+    description : Text;
+    id : Nat;
+    title : Text;
+    userId : UserId__158757552
+  };
+type Data__547710445<T> = {var count : Nat__93962160; elements : [var ?T]};
+type Data__552063367<K, V> = {var count : Nat__93962160; kvs : [var ?(K, V)]};
+type Email__1039163146 = Text;
+type EntryReason__232338034 =
+  {
+    #interestReward;
+    #jobProcessing;
+    #manualDeposit;
+    #reconciliationAdjustment;
+    #recurringDeposit;
+    #vaultBreak;
+    #vaultLock;
+    #vaultUnlock;
+    #withdrawal
+  };
+type EntrySide__611530358 = {#credit; #debit};
+type Entry__16325549 =
+  {email : Email__1039163146; timestamp : Timestamp__301639476};
+type IdempotencyKey__980861041 = Text;
+type IdentityProvider__1048416707 =
+  {#apple; #email; #google; #internetIdentity};
+type Internal__141955830<T> =
+  {children : [var ?Node__656343714<T>]; data : Data__547710445<T>};
+type Internal__455405067<K, V> =
+  {children : [var ?Node__279997185<K, V>]; data : Data__552063367<K, V>};
+type JobKind__82503412 =
+  {
+    #autoDeposit;
+    #interestReward;
+    #milestoneCheck;
+    #optimizationRun;
+    #recurringDeposit;
+    #unlockCheck;
+    #withdrawalProcess
+  };
+type JobLogEntry__1023949250 =
+  {
+    attempt : Nat;
+    jobId : Nat;
+    message : Text;
+    status : JobStatus__374926235;
+    timestamp : Timestamp__301639476
+  };
+type JobStatus__374926235 =
+  {#deadLetter; #failed; #pending; #running; #succeeded};
+type Job__848768964 =
+  {
+    createdAt : Timestamp__301639476;
+    id : Nat;
+    idempotencyKey : IdempotencyKey__980861041;
+    kind : JobKind__82503412;
+    lastError : ?Text;
+    nextAttemptAt : Timestamp__301639476;
+    payload : Text;
+    retryCount : Nat;
+    status : JobStatus__374926235
+  };
+type Leaf__114713147<K, V> = {data : Data__552063367<K, V>};
+type Leaf__384956168<T> = {data : Data__547710445<T>};
+type LedgerEntry__608194883 =
+  {
+    amount : Nat;
+    description : Text;
+    idempotencyKey : IdempotencyKey__980861041;
+    reason : EntryReason__232338034;
+    sequence : Sequence__781491023;
+    side : EntrySide__611530358;
+    timestamp : Timestamp__301639476;
+    transactionId : Nat;
+    triggeredBy : UserId__158757552;
+    userId : UserId__158757552;
+    vaultId : Nat
+  };
+type List__716101829<T> =
+  {
+    var blockIndex : Nat__93962160;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__93962160
+  };
+type List__852723865<T> = List__716101829<T>;
+type Milestone__936743326 = {#fifty; #oneHundred; #seventyFive; #twentyFive};
+type Nat__920180692 = Nat;
+type Nat__93962160 = Nat__920180692;
+type Node__279997185<K, V> =
+  {#internal : Internal__455405067<K, V>; #leaf : Leaf__114713147<K, V>};
+type Node__656343714<T> =
+  {#internal : Internal__141955830<T>; #leaf : Leaf__384956168<T>};
+type Node__93045588<T> =
+  {
+    var next : ?Node__93045588<T>;
+    var previous : ?Node__93045588<T>;
+    value : T
+  };
+type NotificationType__908192046 =
+  {
+    #adminBroadcast;
+    #depositFrozen;
+    #milestoneReached;
+    #recommendationAvailable;
+    #unlockApproaching;
+    #vaultUnlocked
+  };
+type Notification__264708741 =
+  {
+    body : Text;
+    createdAt : Timestamp__301639476;
+    id : Nat;
+    notificationType : NotificationType__908192046;
+    read : Bool;
+    title : Text;
+    userId : UserId__158757552;
+    vaultId : ?Nat
+  };
+type ReachedMilestone__26660072 =
+  {
+    milestone : Milestone__936743326;
+    percent : Nat;
+    reachedAt : Timestamp__301639476;
+    vaultId : Nat
+  };
+type Recommendation__533499180 =
+  {
+    cashFlowWarning : ?Text;
+    createdAt : Timestamp__301639476;
+    disclaimer : Text;
+    id : Nat;
+    rationale : Text;
+    suggestedDepositAdjustment : ?{newAmount : Nat; vaultId : Nat};
+    suggestedPercent : Nat;
+    title : Text;
+    userId : UserId__158757552
+  };
+type RecurringCadence__241962410 = {#daily; #monthly; #weekly};
+type RecurringDeposit__396219346 =
+  {
+    active : Bool;
+    amount : Nat;
+    cadence : RecurringCadence__241962410;
+    createdAt : Timestamp__301639476;
+    id : Nat;
+    idempotencyKeyPrefix : IdempotencyKey__980861041;
+    nextRunAt : Timestamp__301639476;
+    userId : UserId__158757552;
+    vaultId : Nat
+  };
+type Sequence__781491023 = Nat;
+type Timestamp__301639476 = Int;
+type UserId__158757552 = Principal;
+type UserIdentity__87704907 =
+  {
+    isAdmin : Bool;
+    principal : UserId__158757552;
+    provider : IdentityProvider__1048416707;
+    registeredAt : Timestamp__301639476
+  };
+type VaultBalance__505039763 =
+  {
+    balance : Nat;
+    lastSequence : Sequence__781491023;
+    totalCredits : Nat;
+    totalDebits : Nat;
+    userId : UserId__158757552;
+    vaultId : Nat
+  };
+type VaultStatus__747518289 = {#broken; #freezing; #thawed; #thawing};
+type Vault__429807820 =
+  {
+    createdAt : Timestamp__301639476;
+    currentAmount : Nat;
+    goalName : Text;
+    id : Nat;
+    lockDurationNs : Timestamp__301639476;
+    note : ?Text;
+    status : VaultStatus__747518289;
+    targetAmount : Nat;
+    unlockDate : Timestamp__301639476;
+    userId : UserId__158757552
+  };
+actor {
+  stable achievements :
+    {
+      var blockIndex : Nat__93962160;
+      var blocks : [var [var ?Achievement__337376607]];
+      var elementIndex : Nat__93962160
+    };
+  stable adminAllowlist :
+    {var root : Node__656343714<UserId__158757552>; var size : Nat__93962160};
+  stable balanceCache :
+    {
+      var root : Node__279997185<Nat, VaultBalance__505039763>;
+      var size : Nat__93962160
+    };
+  stable deadLetterJobs :
+    {
+      var blockIndex : Nat__93962160;
+      var blocks : [var [var ?Job__848768964]];
+      var elementIndex : Nat__93962160
+    };
+  stable idempotencyIndex :
+    {
+      var root : Node__279997185<IdempotencyKey__980861041, Nat>;
+      var size : Nat__93962160
+    };
+  stable identities :
+    {
+      var root : Node__279997185<UserId__158757552, UserIdentity__87704907>;
+      var size : Nat__93962160
+    };
+  stable jobIndex :
+    {
+      var root : Node__279997185<IdempotencyKey__980861041, Nat>;
+      var size : Nat__93962160
+    };
+  stable jobLog :
+    {
+      var blockIndex : Nat__93962160;
+      var blocks : [var [var ?JobLogEntry__1023949250]];
+      var elementIndex : Nat__93962160
+    };
+  stable ledgerEntries :
+    {
+      var blockIndex : Nat__93962160;
+      var blocks : [var [var ?LedgerEntry__608194883]];
+      var elementIndex : Nat__93962160
+    };
+  stable nextAchievementId : {var value : Nat};
+  stable nextJobId : {var value : Nat};
+  stable nextNotificationId : {var value : Nat};
+  stable nextRecommendationId : {var value : Nat};
+  stable nextRecurringId : {var value : Nat};
+  stable nextSequence : {var value : Nat};
+  stable nextTransactionId : {var value : Nat};
+  stable nextVaultId : {var value : Nat};
+  stable pendingJobs :
+    {
+      var back : ?Node__93045588<Job__848768964>;
+      var front : ?Node__93045588<Job__848768964>;
+      var size : Nat__93962160
+    };
+  stable reachedMilestones :
+    {
+      var blockIndex : Nat__93962160;
+      var blocks : [var [var ?ReachedMilestone__26660072]];
+      var elementIndex : Nat__93962160
+    };
+  stable recommendations :
+    {
+      var blockIndex : Nat__93962160;
+      var blocks : [var [var ?Recommendation__533499180]];
+      var elementIndex : Nat__93962160
+    };
+  stable recurring :
+    {
+      var root : Node__279997185<Nat, RecurringDeposit__396219346>;
+      var size : Nat__93962160
+    };
+  stable totalSaved : {var value : Nat};
+  stable upcomingUnlocks : {var value : Nat};
+  stable userNotifications :
+    {
+      var root :
+        Node__279997185<UserId__158757552,
+                         List__852723865<Notification__264708741>>;
+      var size : Nat__93962160
+    };
+  stable userRecurring :
+    {
+      var root : Node__279997185<UserId__158757552, [Nat]>;
+      var size : Nat__93962160
+    };
+  stable userVaults :
+    {
+      var root : Node__279997185<UserId__158757552, [Nat]>;
+      var size : Nat__93962160
+    };
+  stable vaults :
+    {
+      var root : Node__279997185<Nat, Vault__429807820>;
+      var size : Nat__93962160
+    };
+  stable waitlist :
+    {
+      var root : Node__279997185<Email__1039163146, Entry__16325549>;
+      var size : Nat__93962160
+    }
+};
